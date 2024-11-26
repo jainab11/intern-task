@@ -1,0 +1,61 @@
+<div>
+	<table class="table " cellspacing="0" rules="all" border="1" id="gvspdb" style="width:100%;border-collapse:collapse;">
+		<tr style="background-color:White;">
+			<th scope="col" style="background-color:#3AC0F2;">ID</th><th scope="col" style="background-color:#3AC0F2;">Name</th><th scope="col" style="background-color:#3AC0F2;">Email</th><th scope="col" style="background-color:#3AC0F2;">Password</th><th scope="col" style="background-color:#3AC0F2;">Mobile</th><th scope="col" style="background-color:#3AC0F2;">Gender</th><th scope="col" style="background-color:#3AC0F2;">User Type</th><th scope="col" style="background-color:#3AC0F2;width:150px;">Image</th><th scope="col" style="background-color:#3AC0F2;">Actions</th><th scope="col" style="background-color:#3AC0F2;">Delete</th><th scope="col" style="background-color:#3AC0F2;">Edit</th>
+		</tr><tr style="background-color:White;height:110px;">
+			<td class="textmode" style="background-color:White;">1</td><td class="textmode" style="background-color:White;">
+                            <span>jainab</span>
+                        </td><td class="textmode" style="background-color:White;">
+                            <span>shaikhjainab11@gmail.com</span>
+                        </td><td class="textmode" style="background-color:White;">
+                            <span>8C6sR63Fad5hN+vzCqgoBg==</span>
+                        </td><td class="textmode" style="background-color:White;">
+                            <span>7900047628</span>
+                        </td><td class="textmode" style="background-color:White;">
+                            <span>Male</span>
+                        </td><td class="textmode" style="background-color:White;">
+                            <span>Admin</span>
+                        </td><td class="textmode" style="background-color:White;width:150px;"><img src='https://localhost:44327/Handler1.ashx?id=1' width='100' height='100' style='display: inline-block; vertical-align: middle;' /></td><td class="textmode" style="background-color:White;">&nbsp;</td><td class="textmode" style="background-color:White;"><a class="btn btn-secondary m-1" href="javascript:__doPostBack(&#39;gvspdb&#39;,&#39;Delete$0&#39;)">Delete</a></td><td class="textmode" style="background-color:White;"><a class="btn btn-secondary m-1" href="javascript:__doPostBack(&#39;gvspdb&#39;,&#39;Edit$0&#39;)">Edit</a></td>
+		</tr><tr style="background-color:White;height:110px;">
+			<td class="textmode" style="background-color:#A1DCF2;">2</td><td class="textmode" style="background-color:#A1DCF2;">
+                            <span>anshika</span>
+                        </td><td class="textmode" style="background-color:#A1DCF2;">
+                            <span>anshika@gmail.com</span>
+                        </td><td class="textmode" style="background-color:#A1DCF2;">
+                            <span>qLrGB7p+08G7LTZKrP9SLQ==</span>
+                        </td><td class="textmode" style="background-color:#A1DCF2;">
+                            <span>7845968574</span>
+                        </td><td class="textmode" style="background-color:#A1DCF2;">
+                            <span>Female</span>
+                        </td><td class="textmode" style="background-color:#A1DCF2;">
+                            <span>Admin</span>
+                        </td><td class="textmode" style="background-color:#A1DCF2;width:150px;"><img src='https://localhost:44327/Handler1.ashx?id=2' width='100' height='100' style='display: inline-block; vertical-align: middle;' /></td><td class="textmode" style="background-color:#A1DCF2;">&nbsp;</td><td class="textmode" style="background-color:#A1DCF2;"><a class="btn btn-secondary m-1" href="javascript:__doPostBack(&#39;gvspdb&#39;,&#39;Delete$1&#39;)">Delete</a></td><td class="textmode" style="background-color:#A1DCF2;"><a class="btn btn-secondary m-1" href="javascript:__doPostBack(&#39;gvspdb&#39;,&#39;Edit$1&#39;)">Edit</a></td>
+		</tr><tr>
+			<td>&nbsp;</td><td>
+                            <input name="gvspdb$ctl04$txtNameFooter" type="text" id="gvspdb_txtNameFooter" class="form-control" Placeholder="Name" />
+                        </td><td>
+                            <input name="gvspdb$ctl04$txtEmailFooter" type="text" id="gvspdb_txtEmailFooter" class="form-control" Placeholder="Email" />
+                        </td><td>
+                            <input name="gvspdb$ctl04$txtPasswordFooter" type="text" id="gvspdb_txtPasswordFooter" class="form-control" Placeholder="Password" />
+                        </td><td>
+                            <input name="gvspdb$ctl04$txtMobileFooter" type="text" id="gvspdb_txtMobileFooter" class="form-control" Placeholder="Mobile" />
+                        </td><td>
+                            <select name="gvspdb$ctl04$ddlGenderFooter" id="gvspdb_ddlGenderFooter" class="form-control">
+				<option value="Male">Male</option>
+				<option value="Female">Female</option>
+
+			</select>
+                        </td><td>
+                            <select name="gvspdb$ctl04$ddlUserTypeFooter" id="gvspdb_ddlUserTypeFooter" class="form-control">
+				<option value="Admin">Admin</option>
+				<option value="User">User</option>
+
+			</select>
+                        </td><td>
+                            <input type="file" name="gvspdb$ctl04$txtImageFooter" id="gvspdb_txtImageFooter" class="form-control" />
+                        </td><td>
+                            <input type="submit" name="gvspdb$ctl04$btnInsert" value="Insert" id="gvspdb_btnInsert" class="btn btn-success" />
+                        </td><td>&nbsp;</td><td>&nbsp;</td>
+		</tr>
+	</table>
+</div>
