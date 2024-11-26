@@ -1,0 +1,164 @@
+USE [spdb]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_MANAGE_USERS]    Script Date: 26-11-2024 11:20:33 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Batch submitted through debugger: SQLQuery2.sql|7|0|C:\Users\user\AppData\Local\Temp\~vsAB17.sql
+
+
+ALTER PROCEDURE [dbo].[SP_MANAGE_USERS]
+    @ACTION NVARCHAR(20),
+    @ID INT = NULL,
+    @NAME NVARCHAR(50) = NULL,
+    @EMAIL NVARCHAR(100) = NULL,
+    @PASSWORD NVARCHAR(100) = NULL,
+    @OLDPASSWORD NVARCHAR(100) = NULL, 
+    @NEWPASSWORD NVARCHAR(100) = NULL, 
+    @MOBILE NVARCHAR(25) = NULL,
+    @GENDER NVARCHAR(50) = NULL,
+    @USERTYPE NVARCHAR(50) = NULL,
+    @IMG VARBINARY(MAX) = NULL,
+	@PDF_PATH NVARCHAR(MAX) = NULL
+AS
+BEGIN
+    DECLARE @STOREDPASSWORD NVARCHAR(100);
+
+    IF @ACTION = 'CREATE' 
+    BEGIN
+        INSERT INTO REG_TABLE (NAME, EMAIL, PASSWORD, MOBILE, GENDER, USERTYPE, IMG,PDF_PATH)
+        VALUES (@NAME, @EMAIL, @PASSWORD, @MOBILE, @GENDER, @USERTYPE, @IMG,@PDF_PATH);
+        
+        SELECT SCOPE_IDENTITY() AS NewID;
+    END
+
+    ELSE IF @ACTION = 'READ' 
+    BEGIN
+        SELECT ID, NAME, EMAIL, MOBILE, GENDER, USERTYPE, IMG, PDF_PATH
+        FROM REG_TABLE
+        WHERE ID = @ID;
+    END
+
+    ELSE IF @ACTION = 'UPDATE' 
+    BEGIN
+        UPDATE REG_TABLE
+        SET NAME = @NAME,
+            EMAIL = @EMAIL,
+            PASSWORD = @PASSWORD,
+            MOBILE = @MOBILE,
+            GENDER = @GENDER,
+            USERTYPE = @USERTYPE,
+            IMG = @IMG,
+			PDF_PATH = @PDF_PATH
+        WHERE ID = @ID;
+    END
+
+    ELSE IF @ACTION = 'DELETE'
+    BEGIN
+        DELETE FROM REG_TABLE WHERE ID = @ID;
+    END
+
+    ELSE IF @ACTION = 'LOGIN' 
+BEGIN
+    SELECT @STOREDPASSWORD = PASSWORD
+    FROM REG_TABLE
+    WHERE NAME = @NAME;
+    
+    IF @STOREDPASSWORD IS NULL
+    BEGIN
+        SELECT 'LOGIN FAILED' AS Message;
+        RETURN;
+    END
+    
+    SELECT 'LOGIN SUCCESSFUL' AS Message,
+           ID, NAME, EMAIL, MOBILE, GENDER, USERTYPE,IMG,
+           @STOREDPASSWORD AS EncryptedPassword
+    FROM REG_TABLE
+    WHERE NAME = @NAME;
+END
+
+    ELSE IF @ACTION = 'CHANGEPASSWORD' 
+    BEGIN
+        SELECT @STOREDPASSWORD = PASSWORD
+        FROM REG_TABLE
+        WHERE NAME = @NAME;
+        
+        IF @STOREDPASSWORD IS NULL
+        BEGIN
+            SELECT 'User not found' AS Message;
+            RETURN;
+        END
+        
+        IF @STOREDPASSWORD = @OLDPASSWORD
+        BEGIN
+            UPDATE REG_TABLE
+            SET PASSWORD = @NEWPASSWORD
+            WHERE NAME = @NAME;
+            
+            SELECT 'Password successfully updated' AS Message;
+        END
+        ELSE
+        BEGIN
+            SELECT 'Old password is incorrect' AS Message;
+        END
+    END
+ELSE IF @ACTION = 'EDITDETAILS'
+BEGIN
+    -- Update only the fields that have new values, otherwise, keep existing ones
+    UPDATE REG_TABLE
+    SET 
+        EMAIL = ISNULL(NULLIF(@EMAIL, ''), EMAIL),
+        MOBILE = ISNULL(NULLIF(@MOBILE, ''), MOBILE),
+        GENDER = ISNULL(NULLIF(@GENDER, ''), GENDER)
+    WHERE NAME = @NAME;
+END
+
+
+
+
+    ELSE IF @ACTION = 'SHOWUSERS' 
+    BEGIN
+        SELECT * FROM REG_TABLE;
+    END
+	ELSE IF @ACTION ='DETAILS'
+	BEGIN
+	SELECT NAME, EMAIL, MOBILE, GENDER, USERTYPE, IMG FROM REG_TABLE WHERE ID = @ID;
+	END
+
+    ELSE IF @ACTION = 'ONLYUSER'
+    BEGIN
+        SELECT * FROM REG_TABLE WHERE USERTYPE = 'User';
+    END
+
+    ELSE IF @ACTION = 'FORGOTPASSWORD' 
+    BEGIN
+        SELECT @STOREDPASSWORD = PASSWORD
+        FROM REG_TABLE
+        WHERE EMAIL = @EMAIL;
+        
+        IF @STOREDPASSWORD IS NULL
+        BEGIN
+            SELECT 'Invalid EMail ID' AS Message;
+            RETURN;
+        END
+
+        SELECT @STOREDPASSWORD AS Password;
+    END
+
+  ELSE IF @ACTION = 'GETUSERDETAILS' 
+    BEGIN
+        SELECT ID, NAME, EMAIL, PASSWORD, MOBILE, GENDER, USERTYPE, IMG, PDF_PATH  
+        FROM REG_TABLE
+        WHERE ID = @ID;
+    END
+
+    ELSE
+    BEGIN
+        SELECT 'INVALID ACTION' AS Message;
+    END
+END;
+
+
+
+SELECT IMG FROM REG_TABLE
